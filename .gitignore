@@ -1,3 +1,5 @@
-.vscode
 _*
+.vscode
+config.json
 sql/import_init.sql
+vendor
