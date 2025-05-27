@@ -12,7 +12,7 @@ class Conf extends Singleton
     public protected(set) ?Database $database = null;
 
     #[\Override]
-    protected function init(): void
+    protected function build(): void
     {
         $confPath = dirname(__DIR__, 2) . '/config.json';
         if (!file_exists($confPath)) {

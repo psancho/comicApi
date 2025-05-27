@@ -20,7 +20,7 @@ abstract class Singleton
     }
 
     final protected function __construct() {
-        static::init();
+        static::build();
     }
 
     /** @throws LogicException */
@@ -35,5 +35,5 @@ abstract class Singleton
         throw new LogicException("Singleton: unserializing is prohibited");
     }
 
-    protected abstract function init(): void;
+    protected abstract function build(): void;
 }
