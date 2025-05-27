@@ -33,13 +33,13 @@ class Conf extends Singleton
 
     private function readConf(object $raw): void
     {
-        if (property_exists($raw, 'monolog') && is_object($raw->monolog)) {}
+        if (property_exists($raw, 'auth') && is_object($raw->auth)) {}
         if (property_exists($raw, 'database') && is_object($raw->database)) {
             $this->database = Database::fromObject($raw->database);
         }
-        if (property_exists($raw, 'slim') && is_object($raw->slim)) {}
         if (property_exists($raw, 'mailer') && is_object($raw->mailer)) {}
-        if (property_exists($raw, 'auth') && is_object($raw->auth)) {}
+        if (property_exists($raw, 'monolog') && is_object($raw->monolog)) {}
         if (property_exists($raw, 'self') && is_object($raw->self)) {}
+        if (property_exists($raw, 'slim') && is_object($raw->slim)) {}
     }
 }
