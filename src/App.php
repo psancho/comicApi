@@ -33,7 +33,7 @@ class App extends Singleton
             $e = new ErrorException($errStr, 0, $errNo, $errFile, $errLine);
             if ($errNo === E_USER_DEPRECATED || $errNo === E_DEPRECATED) {
                 echo $e;
-            } else if (isset($backtrace[2]['function']) && '__destruct' == $backtrace[2]['function']) {
+            } else if (isset($backtrace[2]['function']) && '__destruct' === $backtrace[2]['function']) {
                 // LogProvider::error($e);
                 echo 'exception_in_destructor';
             } else {

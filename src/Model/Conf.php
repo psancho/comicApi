@@ -5,11 +5,13 @@ namespace Psancho\Comic\Model;
 
 use ErrorException;
 use Psancho\Comic\Model\Conf\Database;
+use Psancho\Comic\Model\Conf\Monolog;
 use Psancho\Comic\Pattern\Singleton;
 
 class Conf extends Singleton
 {
     public protected(set) ?Database $database = null;
+    public protected(set) ?Monolog $monolog = null;
 
     #[\Override]
     protected function build(): void
@@ -38,7 +40,11 @@ class Conf extends Singleton
             $this->database = Database::fromObject($raw->database);
         }
         if (property_exists($raw, 'mailer') && is_object($raw->mailer)) {}
-        if (property_exists($raw, 'monolog') && is_object($raw->monolog)) {}
+        $this->monolog = Monolog::fromObject(
+            property_exists($raw, 'monolog') && is_object($raw->monolog)
+            ? $raw->monolog
+            : null
+        );
         if (property_exists($raw, 'self') && is_object($raw->self)) {}
         if (property_exists($raw, 'slim') && is_object($raw->slim)) {}
     }

@@ -2,14 +2,14 @@
     "name": "psancho/comics_backend",
     "license": "MIT",
     "version": "0.1.0",
-    "require": {
-        "php": "^8.4"
-    },
     "autoload": {
         "psr-4": {
-
             "Psancho\\Comic\\": "src/"
         }
+    },
+    "require": {
+        "php": "^8.4",
+        "monolog/monolog": "^3"
     },
     "require-dev": {
         "phpstan/phpstan": "^2",

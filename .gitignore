@@ -3,3 +3,4 @@ _*
 config.json
 sql/import_init.sql
 vendor
+logs
