@@ -93,7 +93,7 @@ class Connection
      */
     public static function castBitToInt(string|int $value): int
     {
-        return is_string($value) ? ord($value) : (int) $value;
+        return is_string($value) ? ord($value) : $value;
     }
 
     /** @access private */
