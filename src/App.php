@@ -31,9 +31,11 @@ class App extends Singleton
             // une exception dans un destructeur ça ne fait pas propre, donc je gère
             $backtrace = debug_backtrace();
             $e = new ErrorException($errStr, 0, $errNo, $errFile, $errLine);
-            if (isset($backtrace[2]['function']) && '__destruct' == $backtrace[2]['function']) {
+            if ($errNo === E_USER_DEPRECATED || $errNo === E_DEPRECATED) {
+                echo $e;
+            } else if (isset($backtrace[2]['function']) && '__destruct' == $backtrace[2]['function']) {
                 // LogProvider::error($e);
-                echo 'destructor_exception';
+                echo 'exception_in_destructor';
             } else {
                 throw $e;
             }
