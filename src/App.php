@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Psancho\Comic;
 
+use ErrorException;
 use PDO;
 use Psancho\Comic\Model\Conf;
 use Psancho\Comic\Model\Database\Connection;
@@ -18,7 +19,26 @@ class App extends Singleton
     #[\Override]
     protected function build(): void
     {
+        self::threatErrorAsException();
         $this->conf = Conf::getInstance();
         $this->dbCnx = Connection::getInstance($this->conf->database);
+    }
+
+    protected static function threatErrorAsException(): void
+    {
+        set_error_handler(function (int $errNo, string $errStr, string $errFile, int $errLine)
+        {
+            // une exception dans un destructeur ça ne fait pas propre, donc je gère
+            $backtrace = debug_backtrace();
+            $e = new ErrorException($errStr, 0, $errNo, $errFile, $errLine);
+            if (isset($backtrace[2]['function']) && '__destruct' == $backtrace[2]['function']) {
+                // LogProvider::error($e);
+                echo 'destructor_exception';
+            } else {
+                throw $e;
+            }
+
+            return true;
+        });
     }
 }
