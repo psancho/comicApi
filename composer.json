@@ -8,7 +8,13 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
+    "config": {
+        "preferred-install": {
+            "psancho/*": "source"
+        },
+        "process-timeout": 2400
+    },
+    "prefer-stable": false,
     "repositories": [
         {
             "type": "vcs",
@@ -18,7 +24,7 @@
     "require": {
         "php": "^8.4",
         "monolog/monolog": "^3",
-        "psancho/galeizon": "*"
+        "psancho/galeizon": "@dev"
     },
     "require-dev": {
         "phpstan/phpstan": "^2",

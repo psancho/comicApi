@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4da4a9a3ac42ec60d0536d0351fee69e",
+    "content-hash": "bea106db51a46575acf1f16ff38a9556",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -115,12 +115,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/psancho/galeizon.git",
-                "reference": "29c6544c900757328f9b50c8792821c19ed5e09c"
+                "reference": "2991af82a601cc75048062e94081df42aba264fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psancho/galeizon/zipball/29c6544c900757328f9b50c8792821c19ed5e09c",
-                "reference": "29c6544c900757328f9b50c8792821c19ed5e09c",
+                "url": "https://api.github.com/repos/psancho/galeizon/zipball/2991af82a601cc75048062e94081df42aba264fc",
+                "reference": "2991af82a601cc75048062e94081df42aba264fc",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +148,7 @@
                 "source": "https://github.com/psancho/galeizon/tree/main",
                 "issues": "https://github.com/psancho/galeizon/issues"
             },
-            "time": "2025-05-29T08:27:42+00:00"
+            "time": "2025-05-29T09:15:54+00:00"
         },
         {
             "name": "psr/log",
@@ -1990,8 +1990,10 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
-    "prefer-stable": true,
+    "stability-flags": {
+        "psancho/galeizon": 20
+    },
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.4"
