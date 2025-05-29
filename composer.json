@@ -7,9 +7,18 @@
             "Psancho\\Comic\\": "src/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/psancho/galeizon.git"
+        }
+    ],
     "require": {
         "php": "^8.4",
-        "monolog/monolog": "^3"
+        "monolog/monolog": "^3",
+        "psancho/galeizon": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "^2",

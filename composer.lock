@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3886dfaca46bde168bc9ac2247ae9507",
+    "content-hash": "4da4a9a3ac42ec60d0536d0351fee69e",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -108,6 +108,47 @@
                 }
             ],
             "time": "2025-03-24T10:02:05+00:00"
+        },
+        {
+            "name": "psancho/galeizon",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psancho/galeizon.git",
+                "reference": "29c6544c900757328f9b50c8792821c19ed5e09c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psancho/galeizon/zipball/29c6544c900757328f9b50c8792821c19ed5e09c",
+                "reference": "29c6544c900757328f9b50c8792821c19ed5e09c",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "^3",
+                "php": "^8.4"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^2",
+                "phpstan/phpstan-deprecation-rules": "^2",
+                "phpstan/phpstan-strict-rules": "^2",
+                "phpunit/phpunit": "^10"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Psancho\\Galeizon\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Framework PHP",
+            "support": {
+                "source": "https://github.com/psancho/galeizon/tree/main",
+                "issues": "https://github.com/psancho/galeizon/issues"
+            },
+            "time": "2025-05-29T08:27:42+00:00"
         },
         {
             "name": "psr/log",
@@ -1948,9 +1989,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {},
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.4"
