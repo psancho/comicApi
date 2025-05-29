@@ -46,4 +46,4 @@ parameters:
         - src
     excludePaths:
         analyseAndScan:
-            - s_*
+            - _*
