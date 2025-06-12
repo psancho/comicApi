@@ -1,6 +1,9 @@
 _*
 .vscode
 config.json
+config.jsonc
+logs
+routes/routesMap.php
 sql/import_init.sql
 vendor
-logs
+web/.htaccess

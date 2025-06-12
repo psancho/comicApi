@@ -1,3 +1,3 @@
 # Comics
 
-Application to manage my comics
+API to manage my comics
