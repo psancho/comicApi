@@ -28,7 +28,6 @@ final class Version20250612210030 extends AbstractMigration
             primary key (`key`,`locale`)
             )
         SQL);
-
     }
 
     public function down(Schema $schema): void
