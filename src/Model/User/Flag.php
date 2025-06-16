@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Psancho\Comic\Model;
+namespace Psancho\Comic\Model\User;
 
 enum Flag: int
 {

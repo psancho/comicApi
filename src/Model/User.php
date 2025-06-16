@@ -7,6 +7,7 @@ use Override;
 use PDO;
 use PDOException;
 use Psancho\Comic\Model\User\Filter;
+use Psancho\Comic\Model\User\Flag;
 use Psancho\Galeizon\App;
 use Psancho\Galeizon\Model\Auth\DuplicateUserException;
 use Psancho\Galeizon\Model\Auth\UserIdentity;
@@ -89,7 +90,7 @@ class User extends UserIdentity
         select flags & $flagActive from userprofile where username = ?
         SQL;
         $stmt = App::getInstance()->dataCnx->prepare($sql) ?: throw new PDOException("DB_ERROR");
-        $stmt->setFetchMode(\PDO::FETCH_COLUMN, 0);
+        $stmt->setFetchMode(PDO::FETCH_COLUMN, 0);
         $stmt->execute([$this->username]);
         $active = $stmt->fetch();
         $stmt->closeCursor();
@@ -129,7 +130,7 @@ class User extends UserIdentity
         where email = ?
         SQL;
         $stmt = App::getInstance()->dataCnx->prepare($sql) ?: throw new PDOException("DB_ERROR");
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
         $stmt->execute([$email]);
         /** @var ?self $user */
         $user = $stmt->fetch() ?: null;
@@ -146,7 +147,7 @@ class User extends UserIdentity
         where id = ?
         SQL;
         $stmt = App::getInstance()->dataCnx->prepare($sql) ?: throw new PDOException("DB_ERROR");
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
         $stmt->execute([$id]);
         $user = $stmt->fetch() ?: null;
         assert(is_null($user) || $user instanceof static);
@@ -221,7 +222,7 @@ class User extends UserIdentity
 
         $cnx = App::getInstance()->dataCnx;
         $stmt = $cnx->prepare($sql) ?: throw new PDOException("DB_ERROR");
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
         $stmt->execute($filter->paramList);
         /** @var list<self> $list */
         $list = $stmt->fetchAll() ?: [];
