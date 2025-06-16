@@ -4,22 +4,31 @@ declare(strict_types = 1);
 namespace Psancho\Comic\Model\User;
 
 use Override;
-use Psancho\Comic\Model\Flag;
-use Psancho\Galeizon\Model\Database\Clause;
 use Psancho\Galeizon\Model\Database\Filter as DatabaseFilter;
+use Psancho\Galeizon\Model\Database\Paging;
 
 class Filter extends DatabaseFilter
 {
 
-    public ?string $email = null;
-    public ?string $name = null;
-    public ?bool $active = null;
     /** @var list<string> */
     protected array $clauseList = [];
     /** @var array<string, scalar> */
     public protected(set) array $paramList = [];
 
     protected static array $columnList = ['firstname', 'lastname', 'email', 'last_access'];
+
+    public function __construct(
+        public ?Paging $paging = null,
+        /** @var array<string> */
+        public array $sort = [],
+        public ?string $email = null,
+        public ?string $name = null,
+        public ?bool $active = null,
+
+    )
+    {
+        parent::__construct($paging, $sort);
+    }
 
     #[Override]
     protected function setClauseWhere(): self
