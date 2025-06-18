@@ -17,15 +17,12 @@ use Slim\Http\ServerRequest;
 
 class BooksController extends SlimController
 {
-    /** @param array{ scope: string, locale?: string } $args */
     #[Endpoint(verb: "GET", path: "/books", authz: 'mandatoryUser')]
-    public function get(ServerRequest $request, ResponseInterface $response, array $args): ResponseInterface
+    public function get(ServerRequest $request, ResponseInterface $response): ResponseInterface
     {
         if (!self::isAcceptedJson($request)) {
             return $response->withStatus(StatusCode::HTTP_406_NOT_ACCEPTABLE);
         }
-
-        extract($args, EXTR_IF_EXISTS);
 
         $bookFilter = new Filter(
             paging: new Paging(
