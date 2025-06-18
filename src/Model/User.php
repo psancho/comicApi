@@ -8,6 +8,7 @@ use PDO;
 use PDOException;
 use Psancho\Comic\Model\User\Filter;
 use Psancho\Comic\Model\User\Flag;
+use Psancho\Comic\Model\User\Profile;
 use Psancho\Galeizon\App;
 use Psancho\Galeizon\Model\Auth\DuplicateUserException;
 use Psancho\Galeizon\Model\Auth\UserIdentity;
@@ -16,6 +17,7 @@ class User extends UserIdentity
 {
     public bool $active = false;
     public protected(set) int $id = 0;
+    public int $profile = 0;
 
     protected const string SQL_SELECT = <<<SQL
     select
@@ -24,6 +26,7 @@ class User extends UserIdentity
         firstname,
         lastname,
         email,
+        `profile`,
         flags &
     SQL
     . ' ' . Flag::Active->value . ' '
@@ -50,12 +53,13 @@ class User extends UserIdentity
         }
 
         $sql = <<<SQL
-        insert into userprofile (username, firstname, lastname, email, flags)
-        values (:username, :firstname, :lastname, :email, :flags) as R
+        insert into userprofile (username, firstname, lastname, email, `profile`, flags)
+        values (:username, :firstname, :lastname, :email, :profile, :flags) as R
         on duplicate key update
             firstname = R.firstname,
             lastname = R.lastname,
             email = R.email,
+            `profile` = R.`profile`,
             flags = R.flags
         SQL;
         $stmt = App::getInstance()->dataCnx->prepare($sql) ?: throw new PDOException("DB_ERROR");
@@ -63,6 +67,7 @@ class User extends UserIdentity
         $stmt->bindValue(":firstname", $this->firstname);
         $stmt->bindValue(":lastname", $this->lastname);
         $stmt->bindValue(":email", $this->email);
+        $stmt->bindValue(":profile", $this->profile);
         $stmt->bindValue(":flags", $flags);
         $stmt->execute();
 
@@ -100,6 +105,13 @@ class User extends UserIdentity
     }
 
     #[Override]
+    public function meetRequirements(mixed $requirements = null): bool
+    {
+        assert(is_null($requirements) || $requirements instanceof Profile);
+        return is_null($requirements) || $this->profile >= $requirements->value;
+    }
+
+    #[Override]
     public function update(UserIdentity $targetUser): static
     {
         parent::update($targetUser);
@@ -107,13 +119,14 @@ class User extends UserIdentity
         $sql = <<<SQL
         update userprofile
         set username = :username, `firstname` = :firstName, `lastname` = :lastName,
-        `email` = :email, `flags` = :flags
+        `email` = :email, `profile` = :profile, `flags` = :flags
         where username = :W_username or email = :W_email
         SQL;
         $stmt = App::getInstance()->dataCnx->prepare($sql) ?: throw new PDOException("DB_ERROR");
         $stmt->bindValue(":firstName", $this->firstname ?? $targetUser->firstname);
         $stmt->bindValue(":lastName", $this->lastname ?? $targetUser->lastname);
         $stmt->bindValue(":email", $this->email);
+        $stmt->bindValue(":profile", $this->profile);
         $stmt->bindValue(":username", $this->username ?? $targetUser->username);
         $stmt->bindValue(":W_email", $this->email);
         $stmt->bindValue(":W_username", $this->username ?? $targetUser->username);
@@ -178,6 +191,7 @@ class User extends UserIdentity
         } else {
             $this->active = $found->active;
             $this->id = $found->id;
+            $this->profile = $found->profile;
 
             return $this;
         }
@@ -244,6 +258,9 @@ class User extends UserIdentity
         }
         if (property_exists($object, 'email') && is_scalar($object->email)) {
             $typed->email = trim((string) $object->email);
+        }
+        if (property_exists($object, 'profile') && is_numeric($object->profile)) {
+            $typed->profile = (int) $object->profile;
         }
         if (property_exists($object, 'active') && is_scalar($object->active)) {
             $typed->active = (bool) $object->active;
